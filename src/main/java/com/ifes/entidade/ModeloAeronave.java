@@ -18,6 +18,9 @@ public class ModeloAeronave {
     private double autonomia;
     private Fabricante fabricante;
 
+    public ModeloAeronave() {
+    }
+
     public ModeloAeronave(int idModeloAeronave, String nome, int capPassageiros, double capCargas, double autonomia, Fabricante fabricante) {
         this.idModeloAeronave = idModeloAeronave;
         this.nome = nome;
