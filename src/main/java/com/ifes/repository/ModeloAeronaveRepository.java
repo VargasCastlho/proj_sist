@@ -44,12 +44,12 @@ public class ModeloAeronaveRepository {
     
     public ModeloAeronave update(ModeloAeronave modeloAeronave) 
             throws SQLException, ClassNotFoundException{
-        String script = "UPDATE ModeloAeronave SET nome = " + modeloAeronave.getNome() 
-            + ", capPassageiros = "+ modeloAeronave.getCapPassageiros()+
-                ", capCargas = "+modeloAeronave.getCapCargas()+", autonomia = " 
-                +modeloAeronave.getAutonomia()+", idFabricante ="+ 
+        String script = "UPDATE ModeloAeronave SET nome = '" + modeloAeronave.getNome() 
+            + "', capPassageiros = '"+ modeloAeronave.getCapPassageiros()+
+                "', capCargas = "+modeloAeronave.getCapCargas()+"', autonomia = '" 
+                +modeloAeronave.getAutonomia()+"', idFabricante ='"+ 
                 modeloAeronave.getFabricante().getIdFabricante()+
-                " WHERE idModeloAeronave = " + modeloAeronave.getIdModeloAeronave();
+                "' WHERE idModeloAeronave = " + modeloAeronave.getIdModeloAeronave();
         insertUpdateDelete(script);
 
         return findById(modeloAeronave.getIdModeloAeronave());
@@ -58,12 +58,13 @@ public class ModeloAeronaveRepository {
     public ModeloAeronave insert(ModeloAeronave modeloAeronave) 
             throws SQLException, ClassNotFoundException{
         String script;
+        modeloAeronave.setIdModeloAeronave(id++);
         script = "INSERT INTO ModeloAeronave(idModeloAeronave, nome, "
                 + "capPassageiros, capCargas, autonomia, idFabricante) VALUES "
-                + "("+ id++ +","+ modeloAeronave.getNome() + "," 
-                + modeloAeronave.getCapPassageiros() + ","+
-                modeloAeronave.getCapCargas()+ ","+modeloAeronave.getAutonomia()
-                + ","+modeloAeronave.getFabricante().getIdFabricante()+ ")";
+                + "('"+ modeloAeronave.getIdModeloAeronave() +"','"+ modeloAeronave.getNome() + "','" 
+                + modeloAeronave.getCapPassageiros() + "','"+
+                modeloAeronave.getCapCargas()+ "','"+modeloAeronave.getAutonomia()
+                + "','"+modeloAeronave.getFabricante().getIdFabricante()+ "')";
         insertUpdateDelete(script);
 
         return findById(modeloAeronave.getIdModeloAeronave());

@@ -29,6 +29,7 @@ public class FabricanteRepository {
         while(rs.next()) {
             fabricante.setIdFabricante(rs.getInt(1));
             fabricante.setNome(rs.getString(2));
+            fabricante.setPais(rs.getString(3));
         }
         rs.close();
         statement.close();
@@ -37,8 +38,8 @@ public class FabricanteRepository {
     }
     
     public Fabricante update(Fabricante fabricante) throws SQLException, ClassNotFoundException{
-        String script = "UPDATE fabricante SET nome = " + fabricante.getNome() 
-            + ", pais = "+ fabricante.getPais() +" WHERE idFabricante = " + 
+        String script = "UPDATE fabricante SET nome = '" + fabricante.getNome() 
+            + "', pais = '"+ fabricante.getPais() +"' WHERE idFabricante = " + 
             fabricante.getIdFabricante();
         insertUpdateDelete(script);
 
@@ -48,9 +49,10 @@ public class FabricanteRepository {
     
     public Fabricante insert(Fabricante fabricante) throws SQLException, ClassNotFoundException{
         String script;
+        fabricante.setIdFabricante(id++);
         script = "INSERT INTO fabricante(idFabricante, nome, pais) VALUES "
-                + "("+ id++ +","+ fabricante.getNome() + "," 
-                + fabricante.getPais() + ")";
+                + "('"+ fabricante.getIdFabricante() +"','"+ fabricante.getNome() 
+                + "','" + fabricante.getPais() + "')";
         insertUpdateDelete(script);
 
         return findById(fabricante.getIdFabricante());
