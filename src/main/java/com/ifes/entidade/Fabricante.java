@@ -14,10 +14,25 @@ package com.ifes.entidade;
 public class Fabricante {
     private int idFabricante;
     private String nome;
-    
-    public Fabricante(int idFabricante, String nome) {
+    private String pais;
+
+    public Fabricante(int idFabricante, String nome, String pais) {
         this.idFabricante = idFabricante;
         this.nome = nome;
+        this.pais = pais;
+    }
+    
+
+    public Fabricante() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public String getPais() {
+        return pais;
+    }
+
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public int getIdFabricante() {
@@ -35,5 +50,7 @@ public class Fabricante {
     public void setNome(String nome) {
         this.nome = nome;
     }
+    
+    
   
 }
