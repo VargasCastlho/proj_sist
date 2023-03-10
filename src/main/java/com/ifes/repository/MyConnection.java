@@ -6,11 +6,11 @@ import java.sql.SQLException;
 
 public class MyConnection {
 
-	private String myUrl;
-	private String myDriver;
-	private String myDatabaseName;
-	private String myUser;
-	private String myPassword;
+	private String myUrl = "jdbc:postgresql://localhost:5432/";
+	private String myDriver = "org.postgresql.Driver";
+	private String myDatabaseName = "postgres";
+	private String myUser = "postgres";
+	private String myPassword = "postgres";
 
 	private Connection connection;
 
