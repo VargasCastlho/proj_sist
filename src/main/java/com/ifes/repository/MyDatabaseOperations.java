@@ -27,7 +27,7 @@ public class MyDatabaseOperations {
 		myConnection.setUrl("jdbc:postgresql://localhost:5432/");
 		myConnection.setDatabaseName("myTest");
 		myConnection.setUser("postgres");
-		myConnection.setPassword("admin");
+		myConnection.setPassword("postgres");
 		
 		try {
 			
