@@ -16,7 +16,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        loadTable();
+        this.loadTable();
+    }
+    
+    private void loadTable(){
+        
     }
 
     /**
