@@ -5,6 +5,8 @@
  */
 package com.ifes.interfaces;
 
+import com.ifes.controller.FabricanteController;
+import com.ifes.controller.ModeloAeronaveController;
 import com.ifes.entidade.Fabricante;
 import com.ifes.entidade.ModeloAeronave;
 import com.ifes.repository.FabricanteRepository;
@@ -28,9 +30,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * Creates new form TelaPrincipal
      */
     
-    private FabricanteRepository fabricanteRepository = new FabricanteRepository(); 
-    private ModeloAeronaveRepository modeloAeronaveRepository = new ModeloAeronaveRepository();
-    
+    private FabricanteController fabricanteController = new FabricanteController();
+    private ModeloAeronaveController modeloAeronaveController = new ModeloAeronaveController();
     public TelaPrincipal() {
         initComponents();
         panelModeloAeronave.setVisible(false);
@@ -63,17 +64,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         String[] versoesWindows = { "Selecione um fabricante"};
         fabricanteCombobox.setModel(new javax.swing.DefaultComboBoxModel(versoesWindows));
         
-        try {
-            fabricantes = this.fabricanteRepository.findAll();
-            fabricantes.stream().forEach(fab -> {
-                fabricanteCombobox.addItem(fab.getNome());
-            });
-            
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }  
+        
+       
         
     }
     
@@ -95,7 +87,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Object[] colunas = {"Nome", "Capacidade de Carga", "Fabricante", "Capacidade de passageiros", "Autonomia"};
         DefaultTableModel model = model = new DefaultTableModel(colunas, 0);
 
-        ArrayList<ModeloAeronave> modelos = null;
+        ArrayList<ModeloAeronave> modelos = this.modeloAeronaveController.getAllModelosAeronaves();
         if(modelos != null && !modelos.isEmpty()){
             for(int i = 0; i < modelos.size(); i++){
                 ModeloAeronave modelo = modelos.get(i);
@@ -111,22 +103,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Object[] colunas = {"Nome", "País de Origem"};
         DefaultTableModel model = model = new DefaultTableModel(colunas, 0);
            
-        ArrayList<Fabricante> fabricantes;
-        try {
-            fabricantes = this.fabricanteRepository.findAll();
-            if(fabricantes != null && !fabricantes.isEmpty()){
+        ArrayList<Fabricante> fabricantes = this.fabricanteController.getAllFabricantes();
+        
+        if(fabricantes != null && !fabricantes.isEmpty()){
             for(int i = 0; i < fabricantes.size(); i++){
                 Fabricante fabricante = fabricantes.get(i);
                 Object row = new Object[]{fabricante.getNome(), fabricante.getPais()};
                 model.addRow((Object[]) row);
-            }  
+            }
         }
-        } catch (SQLException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
         
         tableFabricante.setModel(model);
     }
@@ -493,15 +478,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
     
-    
-    private void CadastrarFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarFabricanteActionPerformed
-        
-    }//GEN-LAST:event_CadastrarFabricanteActionPerformed
     private void createPopUp(String label){
         PopUp dialog = new PopUp(this, true);
         dialog.setLabel(label);
-        dialog.setVisible(true);
+        dialog.setVisible(true); 
     }
+    private void CadastrarFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarFabricanteActionPerformed
+        
+    }//GEN-LAST:event_CadastrarFabricanteActionPerformed
+   
     
     //retorna true se caso inseriu todos os campos, false se não
     private boolean validateCamposObrigatoriosFabricante(){
@@ -533,13 +518,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
        fabricante.setPais(paisOrigemCombobox.getSelectedItem().toString());
        
        
-        try {
-           this.fabricanteRepository.insert(fabricante);
-           this.createPopUp("Registro Inserido com sucesso!!"); 
-           
-        } catch (Exception ex) {
-            this.createPopUp("Não foi possivel inserir esse registro"); 
-        } 
+       Fabricante result = this.fabricanteController.insertFabricante(fabricante);
+        if(result != null){
+            this.createPopUp("Registro inserido com sucesso");
+        }else{
+            this.createPopUp("Não foi possivel inserir esse registro");
+        }
         
         this.loadTableFabricante();
     }//GEN-LAST:event_CadastrarFabricanteMouseClicked

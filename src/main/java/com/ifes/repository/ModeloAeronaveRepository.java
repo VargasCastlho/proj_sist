@@ -4,11 +4,13 @@
  */
 package com.ifes.repository;
 
+import com.ifes.entidade.Fabricante;
 import com.ifes.entidade.ModeloAeronave;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 /**
  *
@@ -84,5 +86,34 @@ public class ModeloAeronaveRepository {
         statement.executeUpdate(script);
         statement.close();
         
+    }
+    
+    public ArrayList<ModeloAeronave> findAll() throws SQLException, ClassNotFoundException {
+        MyConnection myConnection = MyConnection.createMyConnection();
+        Connection connection = myConnection.getConnection();
+        Statement statement = connection.createStatement();
+       
+        ArrayList<ModeloAeronave> modelos = null;
+        
+        ResultSet rs = statement.executeQuery("SELECT * FROM modeloAeronave");
+        if(rs != null){
+            modelos = new ArrayList<>();
+            while(rs.next()) {
+                    ModeloAeronave modelo = new ModeloAeronave();
+                    Fabricante fabricante = new Fabricante();
+                    modelo.setIdModeloAeronave(rs.getInt(1));
+                    modelo.setNome(rs.getString(2));
+                    modelo.setCapPassageiros(rs.getInt(3));
+                    modelo.setCapCargas(rs.getDouble(4));
+                    modelo.setAutonomia(rs.getDouble(5));
+                    fabricante.setIdFabricante(rs.getInt(6));
+                    modelo.setFabricante(fabricante);
+                    modelos.add(modelo);
+            }
+        }
+        
+        rs.close();
+        statement.close();
+        return modelos;
     }
 }

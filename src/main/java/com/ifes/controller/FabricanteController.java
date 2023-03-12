@@ -9,7 +9,7 @@ import com.ifes.entidade.Fabricante;
 import com.ifes.repository.FabricanteRepository;
 import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
 import java.util.ArrayList;
-import javax.xml.ws.Response;
+import service.FabricanteService;
 
 /**
  *
@@ -17,11 +17,18 @@ import javax.xml.ws.Response;
  */
 public class FabricanteController {
     
-    private FabricanteRepository fabricanteRepository = new FabricanteRepository();
+   
+    private FabricanteService fabricanteService = new FabricanteService();
     
-    /*public Response getAllFabricantes() {
-        ArrayList<Fabricante> result = this.fabricanteRepository.findAll();
-        
-        return Response.status(result.size() > 0 ? Response.Status.OK : Response.Status.NO_CONTENT).entity(result).build();
-    }*/
+    public ArrayList<Fabricante> getAllFabricantes() {
+        ArrayList<Fabricante> result = this.fabricanteService.findAllFabricantes();
+        return result;
+    }
+    
+    public Fabricante insertFabricante(Fabricante fabricante){
+        Fabricante result = this.fabricanteService.insertFabricante(fabricante);
+        return result;
+    }
+    
+    
 }

@@ -77,6 +77,6 @@ public class ModeloAeronave {
     public void setFabricante(Fabricante fabricante) {
         this.fabricante = fabricante;
     }
-    
+
     
 }

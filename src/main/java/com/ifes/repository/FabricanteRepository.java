@@ -11,6 +11,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -33,6 +35,7 @@ public class FabricanteRepository {
             fabricante.setNome(rs.getString(2));
             fabricante.setPais(rs.getString(3));
         }
+        
         rs.close();
         statement.close();
         
@@ -76,14 +79,37 @@ public class FabricanteRepository {
         
     }
     
-    public void insert(Fabricante fabricante) throws SQLException, ClassNotFoundException{
+    public Fabricante findFabricante(Fabricante fabricante) throws SQLException, ClassNotFoundException{
+        MyConnection myConnection = MyConnection.createMyConnection();
+        Connection connection = myConnection.getConnection();
+        Statement statement = connection.createStatement();
+        Fabricante result = null;
+        ResultSet rs = statement.executeQuery("SELECT * FROM fabricante "
+                + "where nome = " + fabricante.getNome() + " and pais = " + fabricante.getPais() + " ");
+        
+        while(rs.next()) {
+            result = new Fabricante();
+            fabricante.setIdFabricante(rs.getInt(1));
+            fabricante.setNome(rs.getString(2));
+            fabricante.setPais(rs.getString(3));
+            break;
+        }
+        
+        rs.close();
+        statement.close();
+        return result;
+    }
+    
+    public Fabricante insert(Fabricante fabricante) throws SQLException, ClassNotFoundException{
         String script;
+        Fabricante result = null;
 
         script = "INSERT INTO fabricante( nome, pais) VALUES "
                 + "('"+ fabricante.getNome() 
                 + "','" + fabricante.getPais() + "')";
         insertUpdateDelete(script);
-
+        
+        return result;
     }
     
     /**
@@ -93,23 +119,26 @@ public class FabricanteRepository {
      * @throws ClassNotFoundException
      */
     public ArrayList<Fabricante> findAll() throws SQLException, ClassNotFoundException {
-  
         MyConnection myConnection = MyConnection.createMyConnection();
         Connection connection = myConnection.getConnection();
+        Statement statement = connection.createStatement();
+       
         ArrayList<Fabricante> fabricantes = null;
-        try (Statement statement = connection.createStatement()) {
-            fabricantes = new ArrayList<Fabricante>();
-            try (ResultSet rs = statement.executeQuery("SELECT * FROM FABRICANTE")) {
-                while(rs.next()) {
+        
+        ResultSet rs = statement.executeQuery("SELECT * FROM FABRICANTE");
+        if(rs != null){
+            fabricantes = new ArrayList<>();
+            while(rs.next()) {
                     Fabricante fabricante = new Fabricante();
                     fabricante.setIdFabricante(rs.getInt(1));
                     fabricante.setNome(rs.getString(2));
                     fabricante.setPais(rs.getString(3));
                     fabricantes.add(fabricante);
-                }
             }
         }
         
+        rs.close();
+        statement.close();
         return fabricantes;
     }
 }
