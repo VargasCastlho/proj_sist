@@ -34,7 +34,7 @@ public class PopUp extends javax.swing.JDialog {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setBackground(new java.awt.Color(255, 153, 153));
 
-        label.setText("Verifique os campos obrigatórios");
+        label.setText("Preencha todos campos obrigatórios");
 
         jButton1.setText("OK");
         jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -53,14 +53,14 @@ public class PopUp extends javax.swing.JDialog {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(118, Short.MAX_VALUE)
+                .addContainerGap(98, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(label)
-                        .addGap(93, 93, 93))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jButton1)
-                        .addGap(158, 158, 158))))
+                        .addGap(158, 158, 158))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(label)
+                        .addGap(93, 93, 93))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,6 +125,10 @@ public class PopUp extends javax.swing.JDialog {
                 dialog.setVisible(true);
             }
         });
+    }
+    
+    public void setLabel(String label) {
+        this.label.setText(label);
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
