@@ -32,13 +32,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     private FabricanteController fabricanteController = new FabricanteController();
     private ModeloAeronaveController modeloAeronaveController = new ModeloAeronaveController();
+    
+    
     public TelaPrincipal() {
         initComponents();
         panelModeloAeronave.setVisible(false);
         panelFabricante.setVisible(false);
         this.initConnection();
         
-        this.initLayoutFabricante();
+       this.initLayoutFabricante();
         this.initLayoutModeloAeronave();
        
     }
@@ -59,13 +61,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     private void loadComboboxFabricante(){
-        ArrayList<Fabricante> fabricantes;
+        ArrayList<Fabricante> fabricantes = this.fabricanteController.getAllFabricantes();;
         
         String[] versoesWindows = { "Selecione um fabricante"};
         fabricanteCombobox.setModel(new javax.swing.DefaultComboBoxModel(versoesWindows));
         
-        
-       
+        if(fabricantes != null && !fabricantes.isEmpty()){
+            fabricantes.stream().forEach( fab -> {
+                fabricanteCombobox.addItem(fab.getNome());
+            });
+        }
         
     }
     
@@ -103,7 +108,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         Object[] colunas = {"Nome", "País de Origem"};
         DefaultTableModel model = model = new DefaultTableModel(colunas, 0);
            
-        ArrayList<Fabricante> fabricantes = this.fabricanteController.getAllFabricantes();
+         ArrayList<Fabricante>  fabricantes = this.fabricanteController.getAllFabricantes();
         
         if(fabricantes != null && !fabricantes.isEmpty()){
             for(int i = 0; i < fabricantes.size(); i++){
@@ -130,7 +135,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         panelModeloAeronave = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        nome = new javax.swing.JTextField();
+        nomeModeloAeronave = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         capacidade_de_carga = new javax.swing.JSpinner();
         jLabel4 = new javax.swing.JLabel();
@@ -230,27 +235,25 @@ public class TelaPrincipal extends javax.swing.JFrame {
         panelModeloAeronave.setLayout(panelModeloAeronaveLayout);
         panelModeloAeronaveLayout.setHorizontalGroup(
             panelModeloAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModeloAeronaveLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(cadastrarModeloAeronave)
-                .addGap(229, 229, 229))
             .addGroup(panelModeloAeronaveLayout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(panelModeloAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(panelModeloAeronaveLayout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(nome))
-                    .addGroup(panelModeloAeronaveLayout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(fabricanteCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(autonomia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(panelModeloAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cadastrarModeloAeronave)
+                    .addGroup(panelModeloAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(panelModeloAeronaveLayout.createSequentialGroup()
+                            .addComponent(jLabel2)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(nomeModeloAeronave))
+                        .addGroup(panelModeloAeronaveLayout.createSequentialGroup()
+                            .addComponent(jLabel4)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(fabricanteCombobox, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(jLabel6)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(autonomia, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(18, 18, 18)
                 .addGroup(panelModeloAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(panelModeloAeronaveLayout.createSequentialGroup()
@@ -274,7 +277,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(panelModeloAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelModeloAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(nome, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(nomeModeloAeronave, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(jLabel3)
                         .addComponent(capacidade_de_carga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jLabel2)
@@ -287,9 +290,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addComponent(autonomia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labelCpP)
                     .addComponent(cap_de_passageiros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(27, 27, 27)
                 .addComponent(cadastrarModeloAeronave)
-                .addContainerGap(218, Short.MAX_VALUE))
+                .addContainerGap(217, Short.MAX_VALUE))
             .addGroup(panelModeloAeronaveLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelModeloAeronaveLayout.createSequentialGroup()
                     .addContainerGap(141, Short.MAX_VALUE)
@@ -450,32 +453,28 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.initLayoutModeloAeronave();
         }
     }//GEN-LAST:event_eventCadastrarModeloAeronaveMouseClicked
-    private void validateCamposModeloFabricante(ModeloAeronave modelo){
+    private boolean validateCamposModeloAeronave(ModeloAeronave modelo){
         //nome
         boolean openModal = false;
-        if(!"".equals(nome.getText())){
-             modelo.setNome(nome.getText());
-        }else{
-           openModal = true;
+        if(!"".equals(modelo.getNome())) {
+            openModal = true;
+        }else if(modelo.getCapCargas() == 0){
+            openModal = true;
+        }else if(modelo.getCapPassageiros() == 0){
+            openModal = true;
+        }else if(modelo.getAutonomia() == 0){
+            openModal = true;
+        }else if(modelo.getFabricante() == null){
+            openModal = true;
         }
        
-//        //capacidade de carga;
-        double capCarga = Double.parseDouble(capacidade_de_carga.getValue().toString());
-        if(capCarga == 0) {
-            
-            openModal = true;
-        } else {
-            capacidade_de_carga.setBackground(Color.RED);
-            modelo.setCapCargas(capCarga);
-        }
         
         
         if(openModal){
-            PopUp dialog = new PopUp(this, true);
-            dialog.setLabel("Preencha todos os campos!!");
-            dialog.setVisible(true); 
-           
+           this.createPopUp("Preencha todos os campos, por favor!!"); 
         }
+        
+        return !openModal;
     }
     
     private void createPopUp(String label){
@@ -493,7 +492,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         boolean openModal = false;
         boolean result = false;
         //inseriu o nome
-        if(!"".equals(nome.getText())){
+        if(!"".equals(nomeModeloAeronave.getText())){
              
         }else{
            openModal = true;
@@ -504,12 +503,30 @@ public class TelaPrincipal extends javax.swing.JFrame {
     
     private void cadastrarModeloAeronaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarModeloAeronaveMouseClicked
         ModeloAeronave modelo = new ModeloAeronave();
-        this.validateCamposModeloFabricante(modelo);
-        
-        //modelo.setFabricante(fabricanteCombobox.getModel().getSelectedItem());
+        modelo.setNome(nomeModeloAeronave.getText());
+        modelo.setCapCargas(Double.parseDouble(capacidade_de_carga.getValue().toString()));
         modelo.setCapPassageiros(Integer.parseInt(cap_de_passageiros.getValue().toString()));
         modelo.setAutonomia(Double.parseDouble(autonomia.getValue().toString()));
+        Fabricante fabricante = null;
         
+        ArrayList<Fabricante>  fabricantes = this.fabricanteController.getAllFabricantes();
+        if(fabricantes != null && !fabricantes.isEmpty()){
+            for(int i = 0; i < fabricantes.size(); i++){
+                Fabricante fab = fabricantes.get(i);
+                if(fabricanteCombobox.getModel().getSelectedItem().equals(fab.getNome())){
+                    fabricante = new Fabricante();
+                    fabricante.setIdFabricante(fab.getIdFabricante());
+                }
+            }
+        }
+        
+        modelo.setFabricante(fabricante);
+        
+        boolean inserirDado = this.validateCamposModeloAeronave(modelo);
+        if(inserirDado){
+            ModeloAeronave result = this.modeloAeronaveController.insertModeloAeronave(modelo);
+            this.loadTableModeloAeronave();
+        }  
     }//GEN-LAST:event_cadastrarModeloAeronaveMouseClicked
 
     private void CadastrarFabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CadastrarFabricanteMouseClicked
@@ -585,8 +602,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTable1;
     private javax.swing.JLabel labelCpP;
     private javax.swing.JMenuBar navBar;
-    private javax.swing.JTextField nome;
     private javax.swing.JTextField nomeFabricante;
+    private javax.swing.JTextField nomeModeloAeronave;
     private javax.swing.JComboBox<String> paisOrigemCombobox;
     private javax.swing.JPanel panelFabricante;
     private javax.swing.JPanel panelModeloAeronave;

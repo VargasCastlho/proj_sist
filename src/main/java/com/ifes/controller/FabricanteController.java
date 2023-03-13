@@ -5,11 +5,13 @@
  */
 package com.ifes.controller;
 
+
 import com.ifes.entidade.Fabricante;
 import com.ifes.repository.FabricanteRepository;
+import com.ifes.service.FabricanteService;
 import static com.sun.xml.internal.ws.api.message.Packet.Status.Response;
 import java.util.ArrayList;
-import service.FabricanteService;
+
 
 /**
  *
@@ -18,7 +20,7 @@ import service.FabricanteService;
 public class FabricanteController {
     
    
-    private FabricanteService fabricanteService = new FabricanteService();
+    private final FabricanteService fabricanteService = new FabricanteService();
     
     public ArrayList<Fabricante> getAllFabricantes() {
         ArrayList<Fabricante> result = this.fabricanteService.findAllFabricantes();

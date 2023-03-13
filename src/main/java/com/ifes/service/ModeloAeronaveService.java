@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package service;
+package com.ifes.service;
 
-import com.ifes.entidade.Fabricante;
 import com.ifes.entidade.ModeloAeronave;
 import com.ifes.repository.FabricanteRepository;
 import com.ifes.repository.ModeloAeronaveRepository;
@@ -20,6 +19,8 @@ import java.util.logging.Logger;
  */
 public class ModeloAeronaveService {
     private ModeloAeronaveRepository modeloAeronaveRepository = new ModeloAeronaveRepository();
+    private FabricanteRepository fabricanteRepository = new FabricanteRepository();
+     
     public ModeloAeronaveService() {
     }
 
@@ -27,10 +28,20 @@ public class ModeloAeronaveService {
         ArrayList<ModeloAeronave>  result = null;
          try {  
              result = this.modeloAeronaveRepository.findAll();
-         } catch (SQLException ex) {
-             Logger.getLogger(FabricanteService.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (ClassNotFoundException ex) {
-             Logger.getLogger(FabricanteService.class.getName()).log(Level.SEVERE, null, ex);
+             /*if(result != null && !result.isEmpty()){
+                 result.forEach(resp -> {
+                     try {
+                         Fabricante fabricante = this.fabricanteRepository.findById(resp.getFabricante().getIdFabricante());
+                         resp.setFabricante(fabricante);
+                     } catch (ClassNotFoundException ex) {
+                         Logger.getLogger(ModeloAeronaveService.class.getName()).log(Level.SEVERE, null, ex);
+                     } catch (SQLException ex) {
+                         Logger.getLogger(ModeloAeronaveService.class.getName()).log(Level.SEVERE, null, ex);
+                     }
+                 });
+             }*/
+         } catch(Exception ex){
+            
          }
         return result;
     }
@@ -39,12 +50,8 @@ public class ModeloAeronaveService {
        ModeloAeronave result = null;
          try {  
              result = this.modeloAeronaveRepository.insert(modelo);
-         } catch (SQLException ex) {
-             Logger.getLogger(FabricanteService.class.getName()).log(Level.SEVERE, null, ex);
-         } catch (ClassNotFoundException ex) {
-             Logger.getLogger(FabricanteService.class.getName()).log(Level.SEVERE, null, ex);
          } catch(Exception ex){
-             Logger.getLogger(FabricanteService.class.getName()).log(Level.SEVERE, null, ex);
+            
          }
          
         return result;
