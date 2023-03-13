@@ -85,7 +85,7 @@ public class FabricanteRepository {
         Statement statement = connection.createStatement();
         Fabricante result = null;
         ResultSet rs = statement.executeQuery("SELECT * FROM fabricante "
-                + "where nome = " + fabricante.getNome() + " and pais = " + fabricante.getPais() + " ");
+                + "where nome = '" + fabricante.getNome() + "' and pais = '" + fabricante.getPais() + "'");
         
         while(rs.next()) {
             result = new Fabricante();
@@ -109,7 +109,7 @@ public class FabricanteRepository {
                 + "','" + fabricante.getPais() + "')";
         insertUpdateDelete(script);
         
-        return result;
+        return findFabricante(fabricante);
     }
     
     /**

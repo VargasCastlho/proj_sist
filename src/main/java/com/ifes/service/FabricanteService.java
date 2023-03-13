@@ -36,7 +36,7 @@ public class FabricanteService {
     public Fabricante insertFabricante(Fabricante fabricante){
         Fabricante result = null;
          try {  
-             this.fabricanteRepository.insert(fabricante);
+             result = fabricanteRepository.insert(fabricante);
          } catch(Exception ex){
             
          }
