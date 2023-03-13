@@ -38,9 +38,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         initComponents();
         panelModeloAeronave.setVisible(false);
         panelFabricante.setVisible(false);
-        this.initConnection();
         
-       this.initLayoutFabricante();
+        this.initLayoutFabricante();
         this.initLayoutModeloAeronave();
        
     }
@@ -72,20 +71,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
             });
         }
         
-    }
-    
-    private void initConnection(){
-        MyConnection mc = MyConnection.createMyConnection();
-        try {
-            Connection cn = mc.getConnection();
-        } catch (ClassNotFoundException ex) {
-            PopUp dialog = new PopUp(this, true);
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-            
-        } catch (SQLException ex) {
-            PopUp dialog = new PopUp(this, true);
-            Logger.getLogger(TelaPrincipal.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
     
     private void loadTableModeloAeronave( ){
@@ -590,18 +575,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_tableFabricanteMouseClicked
 
     private void excluirFabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirFabricanteMouseClicked
-        this.createPopUp("Aaaa jcjljdljsl");
-        if(this.tableFabricante.getSelectedRow() > 0){
-           Object row = this.tableFabricante.getSelectionModel();
-           
-           if(excluirFabricante.isSelected()){
-               Fabricante fabricante = this.getRowAtFabricante(this.tableFabricante.getSelectedRow());
-               this.createPopUp("Aaaa" + fabricante.getNome());
-               Fabricante result = this.fabricanteController.removeFabricante(fabricante);
-              
-           }
-            
-        }
+        
     }//GEN-LAST:event_excluirFabricanteMouseClicked
 
     /**
