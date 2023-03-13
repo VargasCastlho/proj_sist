@@ -5,6 +5,7 @@
  */
 package com.ifes.service;
 
+import com.ifes.entidade.Fabricante;
 import com.ifes.entidade.ModeloAeronave;
 import com.ifes.repository.FabricanteRepository;
 import com.ifes.repository.ModeloAeronaveRepository;
@@ -28,7 +29,7 @@ public class ModeloAeronaveService {
         ArrayList<ModeloAeronave>  result = null;
          try {  
              result = this.modeloAeronaveRepository.findAll();
-             /*if(result != null && !result.isEmpty()){
+             if(result != null && !result.isEmpty()){
                  result.forEach(resp -> {
                      try {
                          Fabricante fabricante = this.fabricanteRepository.findById(resp.getFabricante().getIdFabricante());
@@ -39,7 +40,7 @@ public class ModeloAeronaveService {
                          Logger.getLogger(ModeloAeronaveService.class.getName()).log(Level.SEVERE, null, ex);
                      }
                  });
-             }*/
+             }
          } catch(Exception ex){
             
          }
