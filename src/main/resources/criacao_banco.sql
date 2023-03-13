@@ -2,7 +2,8 @@ drop table if exists fabricante cascade;
 create table fabricante(
 	idFabricante serial primary key,
 	nome varchar(50),
-	pais varchar(50)
+	pais varchar(50),
+        unique(nome, pais)
 );
 drop table if exists modeloAeronave cascade;
 create table modeloAeronave(
