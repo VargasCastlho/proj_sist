@@ -467,6 +467,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             this.loadTableModeloAeronave();
             if(result != null){
                 this.createPopUp("Registro inserido com sucesso!!");
+                this.limparCamposModelosAeronave();
             }else{
                 this.createPopUp("Não foi possivel inserir esse registro. ");
             }
@@ -511,8 +512,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }else if(modelo.getAutonomia() == 0){
             openModal = true;
         }
-       
-        
         
         if(openModal){
            this.createPopUp("Preencha todos os campos, por favor!!"); 
@@ -527,7 +526,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
         dialog.setVisible(true); 
     }
     private void CadastrarFabricanteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CadastrarFabricanteActionPerformed
-        
+
+       
     }//GEN-LAST:event_CadastrarFabricanteActionPerformed
    
     
@@ -577,7 +577,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void excluirFabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirFabricanteMouseClicked
         
     }//GEN-LAST:event_excluirFabricanteMouseClicked
-
+    
+    private void limparCamposModelosAeronave(){
+         nomeModeloAeronave.setText("");
+        capacidade_de_carga.setValue(0);
+        cap_de_passageiros.setValue(0);
+        autonomia.setValue(0);
+        fabricanteCombobox.getModel().setSelectedItem(0);
+    }
     /**
      * @param args the command line arguments
      */
