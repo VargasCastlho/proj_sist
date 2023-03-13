@@ -175,7 +175,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
 
-        panelModeloAeronave.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
+        panelModeloAeronave.setBorder(javax.swing.BorderFactory.createTitledBorder("Criar Modelo de Aeronave"));
         panelModeloAeronave.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setText("Nome: ");

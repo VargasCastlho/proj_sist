@@ -60,16 +60,16 @@ public class ModeloAeronaveRepository {
     public ModeloAeronave insert(ModeloAeronave modeloAeronave) 
             throws SQLException, ClassNotFoundException{
         String script;
-        modeloAeronave.setIdModeloAeronave(id++);
-        script = "INSERT INTO ModeloAeronave(idModeloAeronave, nome, "
+        
+        script = "INSERT INTO ModeloAeronave(nome, "
                 + "capPassageiros, capCargas, autonomia, idFabricante) VALUES "
-                + "('"+ modeloAeronave.getIdModeloAeronave() +"','"+ modeloAeronave.getNome() + "','" 
+                + "('"+ modeloAeronave.getNome() + "','" 
                 + modeloAeronave.getCapPassageiros() + "','"+
                 modeloAeronave.getCapCargas()+ "','"+modeloAeronave.getAutonomia()
                 + "','"+modeloAeronave.getFabricante().getIdFabricante()+ "')";
         insertUpdateDelete(script);
 
-        return findById(modeloAeronave.getIdModeloAeronave());
+        return findModeloAeronave(modeloAeronave);
     }
     
     public void delete(int idModeloAeronave) throws SQLException, ClassNotFoundException{
@@ -115,5 +115,24 @@ public class ModeloAeronaveRepository {
         rs.close();
         statement.close();
         return modelos;
+    }
+    
+     public ModeloAeronave findModeloAeronave(ModeloAeronave modeloAeronave) throws SQLException, ClassNotFoundException{
+        MyConnection myConnection = MyConnection.createMyConnection();
+        Connection connection = myConnection.getConnection();
+        Statement statement = connection.createStatement();
+        ModeloAeronave result = null;
+        ResultSet rs = statement.executeQuery("SELECT * FROM modeloAeronave "
+                + "where nome = '" + modeloAeronave.getNome() + "' and capPassageiros = '" + modeloAeronave.getCapPassageiros() + "'");
+        
+        while(rs.next()) {
+            result = new ModeloAeronave();
+            result.setIdModeloAeronave(rs.getInt(1));
+            break;
+        }
+        
+        rs.close();
+        statement.close();
+        return result;
     }
 }
