@@ -32,5 +32,13 @@ public class FabricanteController {
         return result;
     }
     
+    public Fabricante findByFilterFabricante(Fabricante fabricante){
+        Fabricante result = this.fabricanteService.findByFilterFabricante(fabricante);
+        return result;
+    }
     
+    public Fabricante removeFabricante(Fabricante fabricante){
+        Fabricante result = this.fabricanteService.removeFabricante(fabricante);
+        return result;
+    }
 }

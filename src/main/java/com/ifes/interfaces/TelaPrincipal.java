@@ -131,7 +131,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
-        pop_up = new javax.swing.JPopupMenu();
+        popUpFabricante = new javax.swing.JPopupMenu();
+        editarFabricante = new javax.swing.JMenuItem();
+        excluirFabricante = new javax.swing.JMenuItem();
+        jPopupMenu1 = new javax.swing.JPopupMenu();
         panelModeloAeronave = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
@@ -171,6 +174,17 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         ));
         jScrollPane1.setViewportView(jTable1);
+
+        editarFabricante.setText("Editar");
+        popUpFabricante.add(editarFabricante);
+
+        excluirFabricante.setText("Excluir");
+        excluirFabricante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                excluirFabricanteMouseClicked(evt);
+            }
+        });
+        popUpFabricante.add(excluirFabricante);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
@@ -341,6 +355,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 return canEdit [columnIndex];
             }
         });
+        tableFabricante.setComponentPopupMenu(popUpFabricante);
+        tableFabricante.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        tableFabricante.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tableFabricanteMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tableFabricante);
 
         javax.swing.GroupLayout panelFabricanteLayout = new javax.swing.GroupLayout(panelFabricante);
@@ -466,7 +487,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         }          
     }//GEN-LAST:event_cadastrarModeloAeronaveActionPerformed
-
+    
+    private Fabricante getRowAtFabricante(int row) {
+         String[] result = new String[2];
+         Fabricante fabricante = new Fabricante();
+         fabricante.getNome(tableFabricante.getModel().getValueAt(row, 1).toString());
+         fabricante.getPais(tableFabricante.getModel().getValueAt(row, 2).toString());
+         return fabricante;
+    }
+    
     private void navBarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navBarMouseClicked
         
     }//GEN-LAST:event_navBarMouseClicked
@@ -555,6 +584,26 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cadastrarModeloAeronaveMouseEntered
 
+    private void tableFabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tableFabricanteMouseClicked
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tableFabricanteMouseClicked
+
+    private void excluirFabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_excluirFabricanteMouseClicked
+        this.createPopUp("Aaaa jcjljdljsl");
+        if(this.tableFabricante.getSelectedRow() > 0){
+           Object row = this.tableFabricante.getSelectionModel();
+           
+           if(excluirFabricante.isSelected()){
+               Fabricante fabricante = this.getRowAtFabricante(this.tableFabricante.getSelectedRow());
+               this.createPopUp("Aaaa" + fabricante.getNome());
+               Fabricante result = this.fabricanteController.removeFabricante(fabricante);
+              
+           }
+            
+        }
+    }//GEN-LAST:event_excluirFabricanteMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -596,8 +645,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton cadastrarModeloAeronave;
     private javax.swing.JSpinner cap_de_passageiros;
     private javax.swing.JSpinner capacidade_de_carga;
+    private javax.swing.JMenuItem editarFabricante;
     private javax.swing.JMenu eventCadastrarFabricante;
     private javax.swing.JMenu eventCadastrarModeloAeronave;
+    private javax.swing.JMenuItem excluirFabricante;
     private javax.swing.JComboBox<String> fabricanteCombobox;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -606,6 +657,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JPopupMenu jPopupMenu1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -617,7 +669,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> paisOrigemCombobox;
     private javax.swing.JPanel panelFabricante;
     private javax.swing.JPanel panelModeloAeronave;
-    private javax.swing.JPopupMenu pop_up;
+    private javax.swing.JPopupMenu popUpFabricante;
     private javax.swing.JTable tableFabricante;
     private javax.swing.JTable tableModeloAeronave;
     // End of variables declaration//GEN-END:variables

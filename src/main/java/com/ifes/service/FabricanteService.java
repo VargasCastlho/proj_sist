@@ -43,4 +43,29 @@ public class FabricanteService {
          
         return result;
     }  
+
+    public Fabricante findByFilterFabricante(Fabricante fabricante) {
+         Fabricante result = null;
+         try {  
+             result = fabricanteRepository.findFabricante(fabricante);
+         } catch(Exception ex){
+            
+         }
+         
+        return result;
+    }
+    
+    public Fabricante removeFabricante(Fabricante fabricante) {
+         Fabricante result = null;
+         try {  
+             result = fabricanteRepository.findFabricante(fabricante);
+             if(result != null){
+                 fabricanteRepository.delete(result.getIdFabricante());
+             }
+         } catch(Exception ex){
+            
+         }
+         
+        return result;
+    }
 }

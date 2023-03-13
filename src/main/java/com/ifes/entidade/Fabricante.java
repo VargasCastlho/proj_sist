@@ -50,6 +50,14 @@ public class Fabricante {
     public void setNome(String nome) {
         this.nome = nome;
     }
+
+    public void getNome(String toString) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public void getPais(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     
   
