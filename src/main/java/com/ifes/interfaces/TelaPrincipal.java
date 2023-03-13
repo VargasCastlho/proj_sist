@@ -175,7 +175,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(204, 204, 204));
 
-        panelModeloAeronave.setBorder(javax.swing.BorderFactory.createTitledBorder("Criar Modelo de Aeronave"));
+        panelModeloAeronave.setBorder(javax.swing.BorderFactory.createTitledBorder(null));
         panelModeloAeronave.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setText("Nome: ");
@@ -202,6 +202,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         cadastrarModeloAeronave.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 cadastrarModeloAeronaveMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cadastrarModeloAeronaveMouseEntered(evt);
             }
         });
         cadastrarModeloAeronave.addActionListener(new java.awt.event.ActionListener() {
@@ -432,7 +435,36 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_fabricanteComboboxActionPerformed
 
     private void cadastrarModeloAeronaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastrarModeloAeronaveActionPerformed
+        ModeloAeronave modelo = new ModeloAeronave();
+        modelo.setNome(nomeModeloAeronave.getText());
+        modelo.setCapCargas(Double.parseDouble(capacidade_de_carga.getValue().toString()));
+        modelo.setCapPassageiros(Integer.parseInt(cap_de_passageiros.getValue().toString()));
+        modelo.setAutonomia(Double.parseDouble(autonomia.getValue().toString()));
+        Fabricante fabricante = null;
         
+        ArrayList<Fabricante>  fabricantes = this.fabricanteController.getAllFabricantes();
+        if(fabricantes != null && !fabricantes.isEmpty()){
+            for(int i = 0; i < fabricantes.size(); i++){
+                Fabricante fab = fabricantes.get(i);
+                if(fabricanteCombobox.getModel().getSelectedItem().equals(fab.getNome())){
+                    fabricante = new Fabricante();
+                    fabricante.setIdFabricante(fab.getIdFabricante());
+                }
+            }
+        }
+        
+        modelo.setFabricante(fabricante);
+        
+        boolean inserirDado = this.validateCamposModeloAeronave(modelo);
+        if(inserirDado){
+            ModeloAeronave result = this.modeloAeronaveController.insertModeloAeronave(modelo);
+            this.loadTableModeloAeronave();
+            if(result != null){
+                this.createPopUp("Registro inserido com sucesso!!");
+            }else{
+                this.createPopUp("Não foi possivel inserir esse registro. ");
+            }
+        }          
     }//GEN-LAST:event_cadastrarModeloAeronaveActionPerformed
 
     private void navBarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_navBarMouseClicked
@@ -456,15 +488,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private boolean validateCamposModeloAeronave(ModeloAeronave modelo){
         //nome
         boolean openModal = false;
-        if(!"".equals(modelo.getNome())) {
+        if(modelo.getNome().isEmpty()) {
             openModal = true;
         }else if(modelo.getCapCargas() == 0){
             openModal = true;
         }else if(modelo.getCapPassageiros() == 0){
             openModal = true;
         }else if(modelo.getAutonomia() == 0){
-            openModal = true;
-        }else if(modelo.getFabricante() == null){
             openModal = true;
         }
        
@@ -502,31 +532,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }
     
     private void cadastrarModeloAeronaveMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarModeloAeronaveMouseClicked
-        ModeloAeronave modelo = new ModeloAeronave();
-        modelo.setNome(nomeModeloAeronave.getText());
-        modelo.setCapCargas(Double.parseDouble(capacidade_de_carga.getValue().toString()));
-        modelo.setCapPassageiros(Integer.parseInt(cap_de_passageiros.getValue().toString()));
-        modelo.setAutonomia(Double.parseDouble(autonomia.getValue().toString()));
-        Fabricante fabricante = null;
-        
-        ArrayList<Fabricante>  fabricantes = this.fabricanteController.getAllFabricantes();
-        if(fabricantes != null && !fabricantes.isEmpty()){
-            for(int i = 0; i < fabricantes.size(); i++){
-                Fabricante fab = fabricantes.get(i);
-                if(fabricanteCombobox.getModel().getSelectedItem().equals(fab.getNome())){
-                    fabricante = new Fabricante();
-                    fabricante.setIdFabricante(fab.getIdFabricante());
-                }
-            }
-        }
-        
-        modelo.setFabricante(fabricante);
-        
-        boolean inserirDado = this.validateCamposModeloAeronave(modelo);
-        if(inserirDado){
-            ModeloAeronave result = this.modeloAeronaveController.insertModeloAeronave(modelo);
-            this.loadTableModeloAeronave();
-        }  
+
     }//GEN-LAST:event_cadastrarModeloAeronaveMouseClicked
 
     private void CadastrarFabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CadastrarFabricanteMouseClicked
@@ -544,6 +550,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
         
         this.loadTableFabricante();
     }//GEN-LAST:event_CadastrarFabricanteMouseClicked
+
+    private void cadastrarModeloAeronaveMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cadastrarModeloAeronaveMouseEntered
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastrarModeloAeronaveMouseEntered
 
     /**
      * @param args the command line arguments
