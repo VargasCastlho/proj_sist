@@ -7,8 +7,8 @@ package com.ifes.interfaces;
 
 import com.ifes.controller.FabricanteController;
 import com.ifes.controller.ModeloAeronaveController;
-import com.ifes.entidade.Fabricante;
-import com.ifes.entidade.ModeloAeronave;
+import com.ifes.entity.Fabricante;
+import com.ifes.entity.ModeloAeronave;
 import com.ifes.repository.FabricanteRepository;
 import com.ifes.repository.ModeloAeronaveRepository;
 import com.ifes.repository.MyConnection;
@@ -370,7 +370,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(panelFabricanteLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 497, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(58, Short.MAX_VALUE))
+                .addContainerGap(55, Short.MAX_VALUE))
         );
         panelFabricanteLayout.setVerticalGroup(
             panelFabricanteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -388,6 +388,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        navBar.setBackground(new java.awt.Color(204, 255, 204));
         navBar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 navBarMouseClicked(evt);
@@ -511,6 +512,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             openModal = true;
         }else if(modelo.getAutonomia() == 0){
             openModal = true;
+        }else if(modelo.getFabricante() == null){
+             openModal = true;
         }
         
         if(openModal){
