@@ -21,6 +21,11 @@ public class Fabricante {
         this.nome = nome;
         this.pais = pais;
     }
+
+    public Fabricante(String nome, String pais) {
+        this.nome = nome;
+        this.pais = pais;
+    }
     
 
     public Fabricante() {

@@ -4,11 +4,10 @@
  * and open the template in the editor.
  */
 package com.ifes.interfaces;
-
+import com.ifes.entidade.Fabricante;
+import com.ifes.entidade.ModeloAeronave;
 import com.ifes.controller.FabricanteController;
 import com.ifes.controller.ModeloAeronaveController;
-import com.ifes.entity.Fabricante;
-import com.ifes.entity.ModeloAeronave;
 import com.ifes.repository.FabricanteRepository;
 import com.ifes.repository.ModeloAeronaveRepository;
 import com.ifes.repository.MyConnection;
@@ -553,18 +552,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_cadastrarModeloAeronaveMouseClicked
 
     private void CadastrarFabricanteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CadastrarFabricanteMouseClicked
-       Fabricante fabricante = new Fabricante();
-       fabricante.setNome(nomeFabricante.getText());
-       fabricante.setPais(paisOrigemCombobox.getSelectedItem().toString());
-       
-       
-       Fabricante result = this.fabricanteController.insertFabricante(fabricante);
+      
+       Fabricante result = this.fabricanteController.insertFabricante(nomeFabricante.getText(), paisOrigemCombobox.getSelectedItem().toString());
         if(result != null){
             this.createPopUp("Registro inserido com sucesso");
         }else{
             this.createPopUp("Não foi possivel inserir esse registro");
-        }
         
+        }
         this.loadTableFabricante();
     }//GEN-LAST:event_CadastrarFabricanteMouseClicked
 

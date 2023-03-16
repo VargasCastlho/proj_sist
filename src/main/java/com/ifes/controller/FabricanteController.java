@@ -27,8 +27,8 @@ public class FabricanteController {
         return result;
     }
     
-    public Fabricante insertFabricante(Fabricante fabricante){
-        Fabricante result = this.fabricanteService.insertFabricante(fabricante);
+    public Fabricante insertFabricante(String nome, String pais){
+        Fabricante result = this.fabricanteService.insertFabricante(nome, pais);
         return result;
     }
     

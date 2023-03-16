@@ -33,9 +33,10 @@ public class FabricanteService {
     }
     
     
-    public Fabricante insertFabricante(Fabricante fabricante){
+    public Fabricante insertFabricante(String nome, String pais){
         Fabricante result = null;
          try {  
+             Fabricante fabricante = new Fabricante(nome, pais);
              result = fabricanteRepository.insert(fabricante);
          } catch(Exception ex){
             
